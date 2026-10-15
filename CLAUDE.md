@@ -40,7 +40,7 @@ jobs を年収600万円以上のハイクラスに絞ったので、**それ以�
 
 - Supabase の Authentication → URL Configuration に `https://skill.agent-best.net` を足さないと、マイページのログインリンクが戻ってこない（松岡さんの確認待ち）。
 - 通知（Edge Function `notify-slack` の `SITES`、Apps Script、管理画面 jobsite-admin）は `source/site = "skill"` を知らない。今は中途扱いのラベルで届く。
-- `assets/ogp.jpg`・`assets/hero.*` は jobs と同じ画像のまま。
+- `assets/ogp.jpg` は skill 用（2026-10-15・原本 `tools/ogp/src.html` を Chrome ヘッドレスで 1200×630 に出力→JPG）。`assets/hero.*` は jobs と同じ写真。
 - `data/first-seen.json` は jobs からの写しで始めた（掲載開始日を引き継ぐため）。
 
 ## 自動更新
