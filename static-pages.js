@@ -19,6 +19,7 @@
 // ⚠ 生成物（job/ jobs/ area/ sitemap.xml assets/site.css）は直接編集しない。次の rebuild で消える。
 const fs = require('fs'), path = require('path');
 
+const JOBS_SITE = 'https://jobs.agent-best.net';  /* skill の求人ページの canonical 先 */
 const SITE = 'https://skill.agent-best.net';
 const LP_MIN = 10;          /* 職種×勤務地ページを作る最低件数。少ないページを量産しても検索には載らない */
 const LP_KEEP = 5;          /* 一度作った一覧ページは、この件数までは残す。10件前後を行き来するたびに
@@ -246,6 +247,9 @@ function jobPage(ctx, j, related){
   const name = jobName(j);
   const co = j.company || '企業非公開';
   const canon = SITE + jobPath(j);
+  /* 2026-10-16 松岡さん「jobsが重要だから、ちゃんと分けたい」: skill の求人はすべて jobs にも同じ ID・同じパスで出ているので、
+     検索エンジンの評価は jobs に寄せる（canonical・JobPosting の url を jobs に。sitemap にも入れない）。シェア用 URL は skill のまま。 */
+  const jobsCanon = JOBS_SITE + jobPath(j);
   const apply = applyHref(C.APPLY_PAGE, j);
 
   /* 見出しのタグ（検索画面の renderDetail と同じ順） */
@@ -400,7 +404,7 @@ function jobPage(ctx, j, related){
       pref ? { addressRegion: pref } : {}, j.location ? { streetAddress: plain(j.location, 120) } : {}) },
     employmentType: [...new Set(empList(j).map(e => EMP_SCHEMA[e] || 'OTHER'))],
     directApply: false,
-    url: canon,
+    url: jobsCanon,
   };
   if(datePosted) ld.datePosted = datePosted;
   /* 掲載期限（Google のしごと検索の推奨項目）。ビルド日の「翌月末」にする：毎日延ばすと 5,000件超のページが毎朝書き換わるので月1回の更新に抑える。
@@ -428,7 +432,7 @@ function jobPage(ctx, j, related){
     .replace('__TITLE__', () => esc(title.length > 70 ? `${name}｜${co} - エージェントベストジョブ手に職` : title))
     .replace(/__OGTITLE__/g, () => esc(`${name}｜${co}（${fmtSalary(j)}）`))
     .replace(/__DESC__/g, () => esc(desc))
-    .replace(/__CANON__/g, () => esc(canon))
+    .replace(/__CANON__/g, () => esc(jobsCanon))
     .replace('__JSONLD__', () => JSON.stringify([ld, crumbLd]).replace(/<\//g, '<\\/'))
     .replace(/__APPLY__/g, () => esc(apply))
     .replace(/__ID__/g, () => esc(j.id))
@@ -664,8 +668,7 @@ function build(root, full){
   const today = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
   const urls = [{ loc: `${SITE}/`, lastmod: today, pri: '1.0' }]
     .concat(pages.map(p => ({ loc: `${SITE}/${p.rel}/`, lastmod: today, pri: '0.8' })))
-    /* skill: 企業ページは canonical が jobs 側なので sitemap に入れない（co.urls は使わない） */
-    .concat(full.map(j => ({ loc: SITE + jobPath(j), lastmod: j.createdAt || (j.recordCreatedAt || today).slice(0, 10), pri: '0.6' })));
+    /* skill: 企業ページ・求人ページは canonical が jobs 側なので sitemap に入れない（co.urls・求人URLは使わない。2026-10-16〜求人も） */;
   const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + urls.map(u => `<url><loc>${esc(u.loc)}</loc><lastmod>${u.lastmod}</lastmod><priority>${u.pri}</priority></url>`).join('\n') + '\n</urlset>\n';
   fs.writeFileSync(path.join(root, 'sitemap.xml'), xml, 'utf8');

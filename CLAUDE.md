@@ -49,3 +49,7 @@
 
 jobsite と同じ `.github/workflows/update-jobs.yml`（毎朝06:00 JST）。Secret `AIRTABLE_TOKEN` が必要。
 作業前に `git pull`。push のルールは jobsite の CLAUDE.md と同じ。
+
+## 2026-10-16 追記: 技術職を追加・求人ページの canonical を jobs へ
+- `site-split.js` に `TECH_GROUPS`（機械・電気電子・半導体・建築土木・食品＝設計・生産技術など）を追加。skill 2,424件（松岡さん「設計・生産技術などの技術職もいれよう」）。
+- 松岡さん「jobsが重要だから、ちゃんと分けたい」→ **求人ページ（job/<ID>/）の canonical と JobPosting の url を jobs 側に向け、sitemap から外した**（`static-pages.js` の `JOBS_SITE`）。sitemap に残るのはトップと一覧ページ（職種・勤務地）だけ。シェアURLは skill のまま。
