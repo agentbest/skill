@@ -1060,6 +1060,147 @@
     .dt-card{padding:16px}
   }
   @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
+
+  /* ================================================================
+     やさしいテーマ（2026-10-17・松岡さん「未経験向けに図とか少し優しさが多いサイトの見栄えにしたい」）
+     skill だけの上書き。上の基本スタイル（jobsite と共通の作り）は残し、ここで色・角丸・ヒーロー・図を足す。
+     ⚠ この節は template.html の <style> の最後に置く（後ろにあるほうが勝つ前提で書いている）。
+     ================================================================ */
+  :root{
+    --paper:#F3F8F5; --surface-2:#EAF3EE; --line:#D9E6DF; --line-2:#E7F0EB;
+    --r-card:20px; --r-input:14px;
+    --soft-mint:#E3F3EC; --soft-sun:#FFF4DC; --soft-peach:#FDEBE4; --soft-sky:#E5F0FB;
+    --ill-1:#0F6B5C; --ill-2:#F2B544; --ill-3:#F28C6B; --ill-4:#6FB3E0; --ill-line:#16423A;
+    --hero-bg:linear-gradient(135deg,#E6F5EE 0%,#F4FAF6 48%,#FFF6E2 100%);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0F1513; --surface-2:#1B2522; --line:#2A3632; --line-2:#222D2A;
+      --soft-mint:#15302A; --soft-sun:#2E2715; --soft-peach:#33221C; --soft-sky:#172636;
+      --ill-1:#6FD0BC; --ill-2:#E8B350; --ill-3:#EE9476; --ill-4:#7DB9E3; --ill-line:#CFE9E1;
+      --hero-bg:linear-gradient(135deg,#14302A 0%,#151E1C 55%,#2A2416 100%);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F3F8F5; --surface-2:#EAF3EE; --line:#D9E6DF; --line-2:#E7F0EB;
+    --soft-mint:#E3F3EC; --soft-sun:#FFF4DC; --soft-peach:#FDEBE4; --soft-sky:#E5F0FB;
+    --ill-1:#0F6B5C; --ill-2:#F2B544; --ill-3:#F28C6B; --ill-4:#6FB3E0; --ill-line:#16423A;
+    --hero-bg:linear-gradient(135deg,#E6F5EE 0%,#F4FAF6 48%,#FFF6E2 100%);
+  }
+  :root[data-theme="dark"]{
+    --paper:#0F1513; --surface-2:#1B2522; --line:#2A3632; --line-2:#222D2A;
+    --soft-mint:#15302A; --soft-sun:#2E2715; --soft-peach:#33221C; --soft-sky:#172636;
+    --ill-1:#6FD0BC; --ill-2:#E8B350; --ill-3:#EE9476; --ill-4:#7DB9E3; --ill-line:#CFE9E1;
+    --hero-bg:linear-gradient(135deg,#14302A 0%,#151E1C 55%,#2A2416 100%);
+  }
+  body{line-height:1.8}
+
+  /* ヒーロー: 写真をやめ、明るいグラデーション＋右にイラスト。文字は濃い色で組む */
+  .hero{background:var(--hero-bg); border-radius:28px; box-shadow:none; border:1px solid var(--line); display:grid; grid-template-columns:minmax(0,1fr) 340px; align-items:center}
+  .hero__scrim{display:none}
+  .hero__inner{color:var(--ink); max-width:none; padding:46px 20px 40px 46px}
+  .hero__eyebrow{color:var(--accent-ink); background:var(--surface); border:1px solid var(--line); padding:5px 14px 5px 12px; border-radius:999px; letter-spacing:.06em; font-size:12.5px}
+  .hero__eyebrow::before{width:8px; height:8px; border-radius:50%; background:var(--ill-2)}
+  .hero h1{color:var(--ink); text-shadow:none}
+  .hero h1 em{color:var(--accent); background:linear-gradient(transparent 62%, color-mix(in srgb,var(--ill-2) 45%, transparent) 62%)}
+  .hero__sub{color:var(--ink-2); text-shadow:none}
+  .hero__search input{border:1.5px solid var(--line); box-shadow:none; border-radius:999px; padding-left:44px}
+  .hero__search button{border-radius:999px; box-shadow:none}
+  .hero__quick-lbl{color:var(--ink-3)}
+  .hero__quick button{color:var(--accent-ink); background:var(--surface); border:1.5px solid color-mix(in srgb,var(--accent) 30%, var(--line)); backdrop-filter:none}
+  .hero__quick button:hover{background:var(--soft-mint); border-color:var(--accent)}
+  .hero__stats{border-top:1px dashed color-mix(in srgb,var(--accent) 30%, var(--line))}
+  .hero__stats b{color:var(--accent)}
+  .hero__stats span{color:var(--ink-3)}
+  .hero__art{position:relative; padding:24px 30px 24px 0; align-self:stretch; display:flex; align-items:center}
+  .hero__art svg{width:100%; height:auto; display:block}
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr}
+    .hero__inner{padding:30px 22px 26px}
+    .hero__art{order:-1; padding:20px 22px 0; justify-content:center}
+    .hero__art svg{max-width:240px}
+  }
+  @media (max-width:560px){ .hero{border-radius:22px} .hero__art svg{max-width:200px} }
+
+  /* カード類の角を丸く・やわらかく */
+  .jrow{border-radius:20px}
+  .intro .note, .cond, .feat__card, .dt-card{border-radius:18px}
+
+  /* ---------- はじめての方へ（図の入ったやさしい案内） ---------- */
+  .kind{margin:6px 0 30px}
+  .kind__h{display:flex; align-items:center; gap:12px; margin:0 0 6px}
+  .kind__h h2{margin:0; font-size:clamp(1.12rem,2.2vw,1.35rem); font-weight:800; letter-spacing:.02em}
+  .kind__h .kind__badge{flex:none; display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%; background:var(--soft-sun); color:#9A6A10}
+  :root[data-theme="dark"] .kind__h .kind__badge{color:var(--ill-2)}
+  .kind__lead{margin:0 0 16px; color:var(--ink-2); font-size:14.5px; max-width:62ch}
+  .kind__box{background:var(--surface); border:1px solid var(--line); border-radius:24px; padding:24px 22px}
+  .kind__note{margin:14px 0 0; font-size:12.5px; color:var(--ink-3)}
+
+  /* 職種アイコン */
+  .cats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
+  .cat{display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 10px 16px; border-radius:20px; background:var(--surface); border:1.5px solid var(--line); text-decoration:none; color:var(--ink); text-align:center; transition:border-color .15s, transform .15s, background .15s}
+  .cat:hover{border-color:var(--accent); transform:translateY(-2px); background:var(--soft-mint)}
+  .cat__ic{display:grid; place-items:center; width:64px; height:64px; border-radius:50%}
+  .cat__ic svg{width:40px; height:40px}
+  .cat b{font-size:14.5px; font-weight:800}
+  .cat span{font-size:12px; color:var(--ink-3); line-height:1.5}
+  .cat:nth-child(4n+1) .cat__ic{background:var(--soft-mint)}
+  .cat:nth-child(4n+2) .cat__ic{background:var(--soft-sun)}
+  .cat:nth-child(4n+3) .cat__ic{background:var(--soft-peach)}
+  .cat:nth-child(4n+4) .cat__ic{background:var(--soft-sky)}
+  @media (max-width:760px){ .cats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px} .cat{padding:14px 8px} }
+
+  /* 転職の流れ（ステップ図） */
+  .steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; counter-reset:st}
+  .step{position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; padding:6px 6px 0}
+  .step + .step::before{content:""; position:absolute; top:44px; left:calc(-50% + 50px); width:calc(100% - 100px); border-top:3px dotted color-mix(in srgb,var(--accent) 45%, transparent)}
+  .step__ic{position:relative; display:grid; place-items:center; width:88px; height:88px; border-radius:50%; background:var(--soft-mint); margin-bottom:10px}
+  .step__ic svg{width:50px; height:50px}
+  .step__no{position:absolute; top:-2px; left:-2px; width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff; font-size:13px; font-weight:800; display:grid; place-items:center; border:3px solid var(--surface)}
+  :root[data-theme="dark"] .step__no{color:#0F1513}
+  .step b{font-size:15px; font-weight:800; margin-bottom:4px}
+  .step p{margin:0; font-size:13px; color:var(--ink-2); line-height:1.7}
+  @media (max-width:760px){
+    .steps{grid-template-columns:1fr; gap:0}
+    .step{flex-direction:row; align-items:flex-start; text-align:left; gap:14px; padding:0 0 18px}
+    .step + .step::before{top:-18px; left:43px; width:0; height:18px; border-top:none; border-left:3px dotted color-mix(in srgb,var(--accent) 45%, transparent)}
+    .step__ic{flex:none; width:72px; height:72px; margin:0}
+    .step__ic svg{width:40px; height:40px}
+    .step div{padding-top:8px}
+    .step b{display:block}
+  }
+
+  /* 手に職がつくまで（階段の図） */
+  .grow{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; align-items:center}
+  .grow__art svg{width:100%; max-width:440px; margin:0 auto; height:auto; display:block}
+  .grow__list{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+  .grow__list li{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:18px; background:var(--surface-2)}
+  .grow__list li i{flex:none; font-style:normal; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:13px; color:#fff; background:var(--ill-1)}
+  .grow__list li:nth-child(2) i{background:var(--ill-2); color:#3A2A05}
+  .grow__list li:nth-child(3) i{background:var(--ill-3)}
+  .grow__list b{display:block; font-size:14.5px}
+  .grow__list span{font-size:13px; color:var(--ink-2)}
+  @media (max-width:760px){ .grow{grid-template-columns:1fr} }
+
+  /* よくある質問 */
+  .faq{display:grid; gap:10px}
+  .faq details{background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:0 18px}
+  .faq summary{list-style:none; cursor:pointer; display:flex; align-items:center; gap:12px; padding:16px 0; font-weight:800; font-size:15px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::before{content:"Q"; flex:none; width:28px; height:28px; border-radius:50%; background:var(--soft-mint); color:var(--accent-ink); display:grid; place-items:center; font-size:13px}
+  .faq summary::after{content:""; margin-left:auto; flex:none; width:9px; height:9px; border-right:2px solid var(--ink-3); border-bottom:2px solid var(--ink-3); transform:rotate(45deg); transition:transform .2s}
+  .faq details[open] summary::after{transform:rotate(-135deg)}
+  .faq details p{margin:0 0 16px 40px; color:var(--ink-2); font-size:14px}
+  .kind__cta{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-top:18px}
+  .kind__cta .btn-soft{display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; background:var(--cta); color:#fff; font-weight:800; font-size:14.5px; text-decoration:none}
+  .kind__cta .btn-soft:hover{background:var(--cta-hover)}
+  .kind__cta .line-btn{padding:12px 20px; font-size:14px}
+  /* イラストの塗り（SVG の属性では var() が効かないので class で塗る） */
+  .ill .f1{fill:var(--ill-1)} .ill .f2{fill:var(--ill-2)} .ill .f3{fill:var(--ill-3)} .ill .f4{fill:var(--ill-4)}
+  .ill .fs{fill:var(--surface)} .ill .fm{fill:var(--soft-mint)} .ill .fy{fill:var(--soft-sun)}
+  .ill .ln{fill:none; stroke:var(--ill-line); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round}
+  .ill .lw{fill:none; stroke:var(--surface); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round}
+  .ill .tx{fill:var(--ink-2); font-size:12px; font-weight:700; font-family:var(--sans)}
 </style>
 </head>
 <body>
@@ -1109,15 +1250,11 @@
   <div id="listView">
   <!-- ===== ヒーロー（アイキャッチ） ===== -->
   <section class="hero">
-    <picture>
-      <source type="image/webp" srcset="assets/hero.webp">
-      <img class="hero__bg" src="assets/hero.jpg" alt="" width="1600" height="650" fetchpriority="high" decoding="async">
-    </picture>
     <div class="hero__scrim"></div>
     <div class="hero__inner">
       <p class="hero__eyebrow">手に職をつけたい人の転職</p>
       <h1>一生ものの<em>スキル</em>を、仕事で身につける。</h1>
-      <p class="hero__sub">技術・資格・専門性が身につく仕事を探せます。未経験から始められる求人、資格取得支援や研修制度のある求人も揃えています。応募は転職エージェントのエージェントベストからの推薦で進み、面接対策から年収交渉まで無料でサポートします。</p>
+      <p class="hero__sub">経験がなくても大丈夫。現場の仕事や技術の仕事など、働きながら技術や資格が身につく求人を集めました。研修や資格取得の支援がある求人も探せます。応募は担当者が企業に推薦する形で進み、面接の準備から条件の相談まで、無料でお手伝いします。</p>
       <form class="hero__search" id="heroSearch" role="search">
         <span class="field">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -1142,16 +1279,72 @@
         <div><b id="count1000">0</b><span>資格取得支援あり</span></div>
       </div>
     </div>
+    <!-- やさしいテーマ: 写真のかわりにイラスト（ヘルメット・歯車・スパナ・芽）。色は CSS の .ill で塗る -->
+    <div class="hero__art" aria-hidden="true">
+      <svg class="ill" viewBox="0 0 320 280" role="img">
+        <circle class="fm" cx="160" cy="146" r="122"/>
+        <circle class="fy" cx="256" cy="62" r="30"/>
+        <!-- 歯車 -->
+        <g transform="translate(250 196)">
+          <path class="f4" d="M-6-34h12l3 9 8 4 9-4 8 8-4 9 4 8 9 3v12l-9 3-4 8 4 9-8 8-9-4-8 4-3 9H-6l-3-9-8-4-9 4-8-8 4-9-4-8-9-3V-6l9-3 4-8-4-9 8-8 9 4 8-4z"/>
+          <circle class="fs" r="11"/>
+        </g>
+        <!-- ヘルメット -->
+        <g transform="translate(150 150)">
+          <path class="f2" d="M-70 18c0-46 31-78 70-78s70 32 70 78z"/>
+          <path class="f1" d="M-12-58h24v34h-24z" opacity=".9"/>
+          <rect class="f2" x="-86" y="14" width="172" height="20" rx="10"/>
+          <path class="ln" d="M-70 18c0-46 31-78 70-78s70 32 70 78"/>
+          <path class="ln" d="M-86 24h172"/>
+          <path class="lw" d="M-40-20c8-14 20-22 34-24"/>
+        </g>
+        <!-- スパナ -->
+        <g transform="translate(72 214) rotate(-35)">
+          <rect class="f3" x="-8" y="-46" width="16" height="70" rx="8"/>
+          <path class="f3" d="M-22-60a22 22 0 1 0 44 0l-10 2-4-12h-16l-4 12z"/>
+          <circle class="fs" cx="0" cy="12" r="4"/>
+        </g>
+        <!-- 芽 -->
+        <g transform="translate(154 238)">
+          <path class="ln" d="M0 10v-34"/>
+          <path class="f1" d="M0-14c-4-16-18-24-32-22 2 16 16 26 32 22z"/>
+          <path class="f1" d="M0-22c6-16 20-22 32-18-4 14-18 22-32 18z" opacity=".8"/>
+          <rect class="f3" x="-22" y="8" width="44" height="22" rx="7"/>
+        </g>
+        <!-- きらきら -->
+        <path class="f2" d="M60 74l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+        <path class="f1" d="M270 128l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" opacity=".7"/>
+      </svg>
+    </div>
   </section>
 
   <section class="intro">
     <p class="note">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-      <span>掲載しているのは求人の一部です。重要なポジションほど公開されず、<b>非公開で動いています</b>。</span>
+      <span>ここに載っているのは求人の一部です。ほかにも<b>公開していない求人</b>があるので、気になることがあればお気軽にご相談ください。</span>
     </p>
     <div class="line-line">
       <span>掲載していない<b>非公開求人</b>もあります。希望を送っていただければ個別にお探しします。</span>
       <a class="line-btn" href="https://line.me/R/ti/p/@697nxhbt?oat_content=url&ts=08302134" target="_blank" rel="noopener noreferrer" data-line-cta="jobs-intro"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>LINEで相談する</span></a>
+    </div>
+  </section>
+
+  <!-- ===== やさしいテーマ: 職種アイコンから探す（2026-10-17）。リンク先は static-pages.js の職種一覧ページ／キーワード検索 ===== -->
+  <section class="kind" aria-labelledby="catsH">
+    <div class="kind__h">
+      <span class="kind__badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+      <h2 id="catsH">お仕事の種類から探す</h2>
+    </div>
+    <p class="kind__lead">どんな仕事があるのか、まずは気になる絵を押してみてください。経験がなくても始められる求人もたくさんあります。</p>
+    <div class="cats ill">
+      <a class="cat" href="jobs/construction-management/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f2" d="M8 30c0-12 7-20 16-20s16 8 16 20z"/><rect class="f2" x="4" y="29" width="40" height="6" rx="3"/><path class="ln" d="M8 30c0-12 7-20 16-20s16 8 16 20M4 32h40M24 10v10"/></svg></span><b>施工管理</b><span>建物づくりの現場をまとめる</span></a>
+      <a class="cat" href="?q=%E8%A3%BD%E9%80%A0"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f1" d="M6 40V22l10 6v-6l10 6v-6l10 6V10h6v30z" opacity=".85"/><path class="ln" d="M6 40V22l10 6v-6l10 6v-6l10 6V10h6v30zM4 40h40"/><rect class="fs" x="12" y="32" width="5" height="5" rx="1"/><rect class="fs" x="22" y="32" width="5" height="5" rx="1"/></svg></span><b>製造・工場</b><span>ものづくりの現場で働く</span></a>
+      <a class="cat" href="jobs/mechanical/"><span class="cat__ic"><svg viewBox="0 0 48 48"><circle class="f3" cx="24" cy="24" r="12"/><path class="ln" d="M24 6v6M24 36v6M6 24h6M36 24h6M11 11l4 4M33 33l4 4M37 11l-4 4M15 33l-4 4"/><circle class="fs" cx="24" cy="24" r="5"/></svg></span><b>機械・設計</b><span>機械や部品を考えてつくる</span></a>
+      <a class="cat" href="jobs/electrical/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f4" d="M27 4L10 27h12l-3 17 17-23H24z"/><path class="ln" d="M27 4L10 27h12l-3 17 17-23H24z"/></svg></span><b>電気・電子</b><span>電気の設計や設備にかかわる</span></a>
+      <a class="cat" href="jobs/retail-food/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f1" d="M8 18h32l-3 22H11z" opacity=".85"/><path class="ln" d="M8 18h32l-3 22H11zM17 18v-4a7 7 0 0 1 14 0v4"/></svg></span><b>販売・飲食</b><span>お店でお客さまと向き合う</span></a>
+      <a class="cat" href="?q=%E4%BB%8B%E8%AD%B7"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f3" d="M24 40S8 30 8 19a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 21-16 21z"/><path class="ln" d="M24 40S8 30 8 19a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 21-16 21z"/></svg></span><b>介護・医療</b><span>人の暮らしと健康を支える</span></a>
+      <a class="cat" href="?q=%E9%85%8D%E9%80%81"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f2" d="M4 14h24v20H4zM28 20h9l7 7v7H28z"/><path class="ln" d="M4 14h24v20H4zM28 20h9l7 7v7H28z"/><circle class="fs" cx="13" cy="36" r="4"/><circle class="fs" cx="36" cy="36" r="4"/><circle class="ln" cx="13" cy="36" r="4"/><circle class="ln" cx="36" cy="36" r="4"/></svg></span><b>配送・物流</b><span>ものを運び、届ける</span></a>
+      <a class="cat" href="jobs/architecture-civil/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f4" d="M8 40V20L24 8l16 12v20z" opacity=".85"/><path class="ln" d="M8 40V20L24 8l16 12v20zM4 40h40"/><rect class="fs" x="19" y="26" width="10" height="14" rx="1"/></svg></span><b>建築・CAD</b><span>図面をかく・建物を考える</span></a>
     </div>
   </section>
 
@@ -1215,6 +1408,73 @@
       </div>
     </section>
   </div>
+  <!-- ===== やさしいテーマ: はじめての方へ（流れの図・手に職がつくまでの図・よくある質問）2026-10-17 ===== -->
+  <section class="kind" aria-labelledby="flowH" style="margin-top:34px">
+    <div class="kind__h">
+      <span class="kind__badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <h2 id="flowH">はじめての転職でも大丈夫。こんな流れで進みます</h2>
+    </div>
+    <p class="kind__lead">応募は、転職エージェント（あなたと企業のあいだに入って転職を手伝う担当者）からの推薦で進みます。わからないことは、いつでも担当者に聞けます。ご利用はすべて無料です。</p>
+    <div class="kind__box">
+      <ol class="steps ill">
+        <li class="step"><span class="step__ic"><span class="step__no">1</span><svg viewBox="0 0 48 48"><path class="f1" d="M6 10h36v22H20l-8 7v-7H6z" opacity=".9"/><path class="lw" d="M14 19h20M14 25h12"/></svg></span><div><b>まずは相談</b><p>LINEやフォームから、希望やいまの状況を気軽にお聞かせください。</p></div></li>
+        <li class="step"><span class="step__ic"><span class="step__no">2</span><svg viewBox="0 0 48 48"><rect class="f2" x="9" y="6" width="30" height="36" rx="4"/><path class="ln" d="M16 16h16M16 23h16M16 30h10"/></svg></span><div><b>求人のご紹介</b><p>希望に合いそうな求人を、仕事の中身や働き方とあわせてご紹介します。</p></div></li>
+        <li class="step"><span class="step__ic"><span class="step__no">3</span><svg viewBox="0 0 48 48"><circle class="f3" cx="17" cy="17" r="7"/><circle class="f4" cx="33" cy="17" r="7"/><path class="f3" d="M5 40c0-8 5-13 12-13s12 5 12 13z"/><path class="f4" d="M21 40c0-8 5-13 12-13s12 5 12 13z" opacity=".9"/></svg></span><div><b>応募・面接</b><p>書類の書き方や面接の練習もお手伝いします。日程の調整もおまかせください。</p></div></li>
+        <li class="step"><span class="step__ic"><span class="step__no">4</span><svg viewBox="0 0 48 48"><circle class="f1" cx="24" cy="24" r="18"/><path class="lw" d="M15 24l6 6 12-13"/></svg></span><div><b>内定・入社</b><p>給与や入社日などの条件の確認・調整も、担当者が間に入って進めます。</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="kind" aria-labelledby="growH">
+    <div class="kind__h">
+      <span class="kind__badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-8M12 12c-1-4-4-6-8-6 0 4 3 6 8 6zM12 14c1-4 4-6 8-6 0 4-3 6-8 6z"/></svg></span>
+      <h2 id="growH">未経験から「手に職」がつくまで</h2>
+    </div>
+    <p class="kind__lead">最初からできる人はいません。多くの会社では、こんなふうに少しずつ仕事を覚えていきます。</p>
+    <div class="kind__box grow">
+      <div class="grow__art ill" aria-hidden="true">
+        <svg viewBox="0 0 360 200">
+          <rect class="fm" x="10" y="140" width="110" height="50" rx="12"/>
+          <rect class="fy" x="125" y="100" width="110" height="90" rx="12"/>
+          <rect class="fm" x="240" y="56" width="110" height="134" rx="12" opacity=".9"/>
+          <!-- 1 研修: 本 -->
+          <g transform="translate(65 112)"><path class="f1" d="M-24-14h22c2 0 2 2 2 2v26s0-2-2-2h-22zM24-14H2c-2 0-2 2-2 2v26s0-2 2-2h22z"/><path class="lw" d="M-16-4h10M6-4h10"/></g>
+          <!-- 2 資格: 賞状 -->
+          <g transform="translate(180 70)"><rect class="f2" x="-22" y="-18" width="44" height="32" rx="4"/><path class="ln" d="M-12-8h24M-12 0h16"/><circle class="f3" cx="14" cy="16" r="8"/><path class="f3" d="M9 20l-3 12 8-4 8 4-3-12z"/></g>
+          <!-- 3 一人前: ヘルメット＋星 -->
+          <g transform="translate(295 28)"><path class="f2" d="M-24 8c0-16 11-26 24-26s24 10 24 26z"/><rect class="f2" x="-30" y="6" width="60" height="8" rx="4"/><path class="ln" d="M-24 8c0-16 11-26 24-26s24 10 24 26M-30 10h60"/></g>
+          <path class="f2" d="M335 18l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+          <text class="tx" x="65" y="172" text-anchor="middle">研修・OJT</text>
+          <text class="tx" x="180" y="152" text-anchor="middle">資格をとる</text>
+          <text class="tx" x="295" y="120" text-anchor="middle">一人前に</text>
+        </svg>
+      </div>
+      <ol class="grow__list">
+        <li><i>1</i><div><b>研修・OJTで基本を覚える</b><span>先輩について、道具の使い方や仕事の進め方を教わります（OJT＝働きながら学ぶこと）。</span></div></li>
+        <li><i>2</i><div><b>資格をとる</b><span>「資格取得支援あり」の求人では、受験の費用や勉強の時間を会社が応援してくれることがあります。</span></div></li>
+        <li><i>3</i><div><b>任される仕事が増える</b><span>経験と資格が増えるほど、まかされる範囲が広がり、どこでも通用する技術になります。</span></div></li>
+      </ol>
+    </div>
+    <p class="kind__note">※ 一般的な流れの一例です。研修の内容や期間は会社・求人ごとに違うので、求人の詳細でご確認ください。</p>
+  </section>
+
+  <section class="kind" aria-labelledby="faqH">
+    <div class="kind__h">
+      <span class="kind__badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.5v.01"/></svg></span>
+      <h2 id="faqH">よくあるご質問</h2>
+    </div>
+    <div class="faq">
+      <details><summary>未経験でも応募できますか？</summary><p>はい。「未経験歓迎」の印がついた求人は、経験がなくても応募できます。入社してから研修や先輩のサポートで仕事を覚えていく前提の求人です。どれが合うかわからないときは、担当者が一緒にお探しします。</p></details>
+      <details><summary>資格がなくても大丈夫ですか？</summary><p>入社の時点で資格がいらない求人もたくさんあります。「資格取得支援あり」の求人なら、働きながら資格をめざせます。必要な資格は求人ごとに違うので、詳細の「応募条件」をご確認ください。</p></details>
+      <details><summary>年齢や学歴が気になります。</summary><p>条件は求人ごとに違います。気になる求人があれば、応募の前に担当者が企業に確認しますので、遠慮なくご相談ください。</p></details>
+      <details><summary>お金はかかりますか？</summary><p>かかりません。ご紹介から面接の対策、条件の調整まで、すべて無料でご利用いただけます（費用は採用する企業が負担しています）。</p></details>
+      <details><summary>まだ転職するか決めていません。相談だけでもいいですか？</summary><p>もちろんです。「どんな仕事が向いているかわからない」という段階からでも大丈夫です。LINEで気軽にメッセージをお送りください。</p></details>
+    </div>
+    <div class="kind__cta">
+      <a class="btn-soft" href="apply.html">無料で相談・申し込みをする</a>
+      <a class="line-btn" href="https://line.me/R/ti/p/@697nxhbt?oat_content=url&ts=08302134" target="_blank" rel="noopener noreferrer" data-line-cta="skill-faq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>LINEで気軽に相談する</span></a>
+    </div>
+  </section>
   </div><!-- /#listView -->
 
   <section class="detail" id="detail" hidden aria-label="求人詳細">
