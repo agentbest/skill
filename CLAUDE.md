@@ -64,5 +64,7 @@ jobsite と同じ `.github/workflows/update-jobs.yml`（毎朝06:00 JST）。Sec
 ## 2026-10-17 イラスト → 写真（Unsplash）
 松岡さん「フリー素材は絵というより写真系を活用して」。ヒーロー右・「お仕事の種類から探す」8枚・「手に職がつくまで」の図を写真に差し替えた（`assets/photos/*.jpg`、images.unsplash.com から幅を指定して取得）。転職の流れのステップアイコンと見出しバッジは UI 用なので SVG のまま。
 - Unsplash License（商用可・クレジット不要）。**Unsplash+（premium_photo-）は使わない**。ぱくたそは暗い写真・AI画像が多く、規約で「人物を社員のように見せる」「自動での一括収集」が禁止なので今回は不採用。
-- 出典（unsplash.com/photos/<ID>）: hero=tZw3fcjUIpM / sekou=Yw5u_ZvQfrs / seizo=aYKPNKZmGkk / kikai=KAVGTm62cuw / denki=LMb98OOtoYU / hanbai=Sx8G6WjyMHU / kaigo=yk7F8bdD0eU / haiso=Mpg2LkMGOS8 / kenchiku=HtBlQdxfG9k / grow=aTWyvqRJoYY
+- 出典（unsplash.com/photos/<ID>）: hero=tZw3fcjUIpM / sekou=Yw5u_ZvQfrs / seizo=aYKPNKZmGkk / kikai=KAVGTm62cuw / denki=LMb98OOtoYU / hanbai=Sx8G6WjyMHU / kaigo=yk7F8bdD0eU / haiso=Mpg2LkMGOS8 / kenchiku=HtBlQdxfG9k / grow=aTWyvqRJoYY / engineer=m_HRfLhgABo / consul=wD1LRb9OeEo / eigyo=n95VMLxqM2I / jimu=5fNmWej4tAA
+- 2026-10-17 夜、「お仕事の種類から探す」を12枚（4列×3段）に（松岡さん「エンジニアの未経験とコンサルの未経験を作って。12個にしたい」）。追加は 未経験からエンジニア（`jobs/engineer/`）／未経験からコンサル（`?cat=コンサルタント,ITコンサルタント`）／営業（`jobs/sales/`）／事務・人事（`?cat=管理,人事`）。営業と事務・人事の2枚は Claude が件数（営業333・管理+人事49）で選んだ。
+- `?cat=` はカンマ区切りで大分類を複数（OR）指定できる（`applyFilterParams`）。skill のホワイトカラー求人は全部「未経験可」なので、エンジニア・コンサルは職種で絞るだけで未経験の求人になる
 - 写真は「職種の雰囲気」として使う。求人企業の社員や実例のように見せる文脈（体験談・社員紹介）には使わない。
