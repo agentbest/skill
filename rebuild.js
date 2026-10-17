@@ -94,10 +94,18 @@ function noDuplicates(jobs){
    旧 hiClassOnly()（その他・小売飲食・交通運輸で450万円未満）と noExcludedGroups()（施工管理）はこの振り分けに吸収した。
    相手のサイトに出る求人のIDは data/moved.json に書き、404.html がそちらの求人ページへ転送する。 */
 const SITE = 'skill';
-const { splitForSite } = require('./site-split');
+const { splitForSite, newcomerOk, UNEXPERIENCED_TAGS } = require('./site-split');
 function splitSite(jobs){
   const { kept, moved } = splitForSite(jobs, SITE);
   fs.writeFileSync(path.join(dir, 'data', 'moved.json'), JSON.stringify(moved.map(j => j.id).sort()), 'utf8');
+  /* 施工管理・技術職などは未経験可でなくても載るので、必須条件で経験が要る求人からは「未経験歓迎」系のタグを外す
+     （タグの絞り込み・特集・ヒーローの「未経験歓迎」に経験者向け求人が混ざらないように。Airtable のタグは触らない） */
+  let stripped = 0;
+  kept.forEach(j => {
+    if(!(j.tags || []).some(t => UNEXPERIENCED_TAGS.has(t)) || newcomerOk(j)) return;
+    j.tags = j.tags.filter(t => !UNEXPERIENCED_TAGS.has(t)); stripped++;
+  });
+  if(stripped) console.log(`必須条件で経験が要る求人から「未経験」系タグを外しました: ${stripped}件`);
   return kept;
 }
 
