@@ -1296,7 +1296,7 @@
     </div>
   </section>
 
-  <!-- ===== やさしいテーマ: 職種アイコンから探す（2026-10-17）。リンク先は static-pages.js の職種一覧ページ／キーワード検索 ===== -->
+  <!-- ===== やさしいテーマ: 職種アイコンから探す（2026-10-17・12枚＝4列×3段）。リンク先は static-pages.js の職種一覧ページ／キーワード検索 ===== -->
   <section class="kind" aria-labelledby="catsH">
     <div class="kind__h">
       <span class="kind__badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
@@ -1312,6 +1312,10 @@
       <a class="cat" href="?q=%E4%BB%8B%E8%AD%B7"><span class="cat__ph"><img src="/assets/photos/kaigo.jpg" width="480" height="320" alt="" loading="lazy"></span><b>介護・医療</b><span>人の暮らしと健康を支える</span></a>
       <a class="cat" href="?q=%E9%85%8D%E9%80%81"><span class="cat__ph"><img src="/assets/photos/haiso.jpg" width="480" height="320" alt="" loading="lazy"></span><b>配送・物流</b><span>ものを運び、届ける</span></a>
       <a class="cat" href="jobs/architecture-civil/"><span class="cat__ph"><img src="/assets/photos/kenchiku.jpg" width="480" height="320" alt="" loading="lazy"></span><b>建築・CAD</b><span>図面をかく・建物を考える</span></a>
+      <a class="cat" href="jobs/engineer/"><span class="cat__ph"><img src="/assets/photos/engineer.jpg" width="480" height="320" alt="" loading="lazy"></span><b>未経験からエンジニア</b><span>システムやアプリをつくる</span></a>
+      <a class="cat" href="?cat=%E3%82%B3%E3%83%B3%E3%82%B5%E3%83%AB%E3%82%BF%E3%83%B3%E3%83%88,IT%E3%82%B3%E3%83%B3%E3%82%B5%E3%83%AB%E3%82%BF%E3%83%B3%E3%83%88"><span class="cat__ph"><img src="/assets/photos/consul.jpg" width="480" height="320" alt="" loading="lazy"></span><b>未経験からコンサル</b><span>会社の課題を一緒に解く</span></a>
+      <a class="cat" href="jobs/sales/"><span class="cat__ph"><img src="/assets/photos/eigyo.jpg" width="480" height="320" alt="" loading="lazy"></span><b>営業</b><span>商品やサービスを届ける</span></a>
+      <a class="cat" href="?cat=%E7%AE%A1%E7%90%86,%E4%BA%BA%E4%BA%8B"><span class="cat__ph"><img src="/assets/photos/jimu.jpg" width="480" height="320" alt="" loading="lazy"></span><b>事務・人事</b><span>会社の毎日を内側から支える</span></a>
     </div>
   </section>
 
@@ -1525,7 +1529,7 @@
    タグは番号（t）で入っていて、TAGS の定義後（下の JOBS.forEach）で名前に戻す。 */
 const JOBS = (d=>{ if(Array.isArray(d)) return d; const k=d.k||[]; return (d.r||[]).map(row=>{ const o={}; k.forEach((key,i)=>{ const v=row[i]; if(v!==null&&v!==undefined&&v!=="") o[key]=v; }); return o; }); })(await (async()=>{
   try{
-    const r=await fetch("data/list.json?v=94f2ce2e20",{cache:"force-cache"});
+    const r=await fetch("data/list.json?v=7181f27653",{cache:"force-cache"});
     if(!r.ok) throw new Error("HTTP "+r.status);
     return await r.json();
   }catch(e){
@@ -2875,7 +2879,8 @@ function applyFilterParams(p){
   const cat=p.get("cat"), area=p.get("area"), q=(p.get("q")||"").trim();
   if(!cat && !area && !q) return false;
   let n=0;
-  if(cat){ clearFacetSilent("jobCategory"); if(pickValue("jobCategory",cat)) n++; }
+  /* ?cat=A,B で大分類を複数（OR）。トップの「お仕事の種類から探す」のコンサル・事務が使う */
+  if(cat){ clearFacetSilent("jobCategory"); if(cat.split(",").map(c=>pickValue("jobCategory",c.trim())).some(Boolean)) n++; }
   if(area){ clearFacetSilent("areas"); if(pickValue("areas",area)) n++; }
   /* ?q=<キーワード>（backlog #14）。コーポレートの記事CTA・企業ページの「すべての求人を見る」が使う入口。
      検索窓に流し込むだけで、絞り込みの状態は他と同じ仕組みで動く（書き戻しはしない） */
