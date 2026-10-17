@@ -1112,15 +1112,16 @@
   .hero__stats{border-top:1px dashed color-mix(in srgb,var(--accent) 30%, var(--line))}
   .hero__stats b{color:var(--accent)}
   .hero__stats span{color:var(--ink-3)}
-  .hero__art{position:relative; padding:24px 30px 24px 0; align-self:stretch; display:flex; align-items:center}
-  .hero__art svg{width:100%; height:auto; display:block}
+  /* 2026-10-17 松岡さん「フリー素材は絵というより写真系を活用して」→ イラストを Unsplash の写真（assets/photos/）に差し替え */
+  .hero{grid-template-columns:minmax(0,1fr) minmax(0,420px); overflow:hidden}
+  .hero__art{position:relative; padding:0; align-self:stretch; display:block; min-height:100%}
+  .hero__art img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 40%; display:block}
   @media (max-width:900px){
     .hero{grid-template-columns:1fr}
     .hero__inner{padding:30px 22px 26px}
-    .hero__art{order:-1; padding:20px 22px 0; justify-content:center}
-    .hero__art svg{max-width:240px}
+    .hero__art{order:-1; position:relative; height:200px; min-height:0}
   }
-  @media (max-width:560px){ .hero{border-radius:22px} .hero__art svg{max-width:200px} }
+  @media (max-width:560px){ .hero{border-radius:22px} .hero__art{height:170px} }
 
   /* カード類の角を丸く・やわらかく */
   .jrow{border-radius:20px}
@@ -1138,17 +1139,16 @@
 
   /* 職種アイコン */
   .cats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
-  .cat{display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 10px 16px; border-radius:20px; background:var(--surface); border:1.5px solid var(--line); text-decoration:none; color:var(--ink); text-align:center; transition:border-color .15s, transform .15s, background .15s}
+  .cat{display:flex; flex-direction:column; align-items:center; gap:6px; padding:0 0 14px; overflow:hidden; border-radius:20px; background:var(--surface); border:1.5px solid var(--line); text-decoration:none; color:var(--ink); text-align:center; transition:border-color .15s, transform .15s, background .15s}
   .cat:hover{border-color:var(--accent); transform:translateY(-2px); background:var(--soft-mint)}
-  .cat__ic{display:grid; place-items:center; width:64px; height:64px; border-radius:50%}
-  .cat__ic svg{width:40px; height:40px}
+  .cat__ph{display:block; width:100%; aspect-ratio:3/2; margin-bottom:6px; background:var(--soft-mint)}
+  .cat__ph img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s}
+  .cat:hover .cat__ph img{transform:scale(1.04)}
+  .cat b, .cat span{padding:0 10px}
+  .cat .cat__ph{padding:0}
   .cat b{font-size:14.5px; font-weight:800}
   .cat span{font-size:12px; color:var(--ink-3); line-height:1.5}
-  .cat:nth-child(4n+1) .cat__ic{background:var(--soft-mint)}
-  .cat:nth-child(4n+2) .cat__ic{background:var(--soft-sun)}
-  .cat:nth-child(4n+3) .cat__ic{background:var(--soft-peach)}
-  .cat:nth-child(4n+4) .cat__ic{background:var(--soft-sky)}
-  @media (max-width:760px){ .cats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px} .cat{padding:14px 8px} }
+  @media (max-width:760px){ .cats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px} .cat{padding:0 0 12px} }
 
   /* 転職の流れ（ステップ図） */
   .steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; counter-reset:st}
@@ -1172,7 +1172,7 @@
 
   /* 手に職がつくまで（階段の図） */
   .grow{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; align-items:center}
-  .grow__art svg{width:100%; max-width:440px; margin:0 auto; height:auto; display:block}
+  .grow__art img{width:100%; max-width:480px; margin:0 auto; height:auto; aspect-ratio:45/32; object-fit:cover; border-radius:20px; display:block}
   .grow__list{list-style:none; margin:0; padding:0; display:grid; gap:12px}
   .grow__list li{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:18px; background:var(--surface-2)}
   .grow__list li i{flex:none; font-style:normal; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:13px; color:#fff; background:var(--ill-1)}
@@ -1281,40 +1281,7 @@
     </div>
     <!-- やさしいテーマ: 写真のかわりにイラスト（ヘルメット・歯車・スパナ・芽）。色は CSS の .ill で塗る -->
     <div class="hero__art" aria-hidden="true">
-      <svg class="ill" viewBox="0 0 320 280" role="img">
-        <circle class="fm" cx="160" cy="146" r="122"/>
-        <circle class="fy" cx="256" cy="62" r="30"/>
-        <!-- 歯車 -->
-        <g transform="translate(250 196)">
-          <path class="f4" d="M-6-34h12l3 9 8 4 9-4 8 8-4 9 4 8 9 3v12l-9 3-4 8 4 9-8 8-9-4-8 4-3 9H-6l-3-9-8-4-9 4-8-8 4-9-4-8-9-3V-6l9-3 4-8-4-9 8-8 9 4 8-4z"/>
-          <circle class="fs" r="11"/>
-        </g>
-        <!-- ヘルメット -->
-        <g transform="translate(150 150)">
-          <path class="f2" d="M-70 18c0-46 31-78 70-78s70 32 70 78z"/>
-          <path class="f1" d="M-12-58h24v34h-24z" opacity=".9"/>
-          <rect class="f2" x="-86" y="14" width="172" height="20" rx="10"/>
-          <path class="ln" d="M-70 18c0-46 31-78 70-78s70 32 70 78"/>
-          <path class="ln" d="M-86 24h172"/>
-          <path class="lw" d="M-40-20c8-14 20-22 34-24"/>
-        </g>
-        <!-- スパナ -->
-        <g transform="translate(72 214) rotate(-35)">
-          <rect class="f3" x="-8" y="-46" width="16" height="70" rx="8"/>
-          <path class="f3" d="M-22-60a22 22 0 1 0 44 0l-10 2-4-12h-16l-4 12z"/>
-          <circle class="fs" cx="0" cy="12" r="4"/>
-        </g>
-        <!-- 芽 -->
-        <g transform="translate(154 238)">
-          <path class="ln" d="M0 10v-34"/>
-          <path class="f1" d="M0-14c-4-16-18-24-32-22 2 16 16 26 32 22z"/>
-          <path class="f1" d="M0-22c6-16 20-22 32-18-4 14-18 22-32 18z" opacity=".8"/>
-          <rect class="f3" x="-22" y="8" width="44" height="22" rx="7"/>
-        </g>
-        <!-- きらきら -->
-        <path class="f2" d="M60 74l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
-        <path class="f1" d="M270 128l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" opacity=".7"/>
-      </svg>
+      <img src="/assets/photos/hero.jpg" width="1200" height="900" alt="" fetchpriority="high">
     </div>
   </section>
 
@@ -1337,14 +1304,14 @@
     </div>
     <p class="kind__lead">どんな仕事があるのか、まずは気になる絵を押してみてください。経験がなくても始められる求人もたくさんあります。</p>
     <div class="cats ill">
-      <a class="cat" href="jobs/construction-management/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f2" d="M8 30c0-12 7-20 16-20s16 8 16 20z"/><rect class="f2" x="4" y="29" width="40" height="6" rx="3"/><path class="ln" d="M8 30c0-12 7-20 16-20s16 8 16 20M4 32h40M24 10v10"/></svg></span><b>施工管理</b><span>建物づくりの現場をまとめる</span></a>
-      <a class="cat" href="?q=%E8%A3%BD%E9%80%A0"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f1" d="M6 40V22l10 6v-6l10 6v-6l10 6V10h6v30z" opacity=".85"/><path class="ln" d="M6 40V22l10 6v-6l10 6v-6l10 6V10h6v30zM4 40h40"/><rect class="fs" x="12" y="32" width="5" height="5" rx="1"/><rect class="fs" x="22" y="32" width="5" height="5" rx="1"/></svg></span><b>製造・工場</b><span>ものづくりの現場で働く</span></a>
-      <a class="cat" href="jobs/mechanical/"><span class="cat__ic"><svg viewBox="0 0 48 48"><circle class="f3" cx="24" cy="24" r="12"/><path class="ln" d="M24 6v6M24 36v6M6 24h6M36 24h6M11 11l4 4M33 33l4 4M37 11l-4 4M15 33l-4 4"/><circle class="fs" cx="24" cy="24" r="5"/></svg></span><b>機械・設計</b><span>機械や部品を考えてつくる</span></a>
-      <a class="cat" href="jobs/electrical/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f4" d="M27 4L10 27h12l-3 17 17-23H24z"/><path class="ln" d="M27 4L10 27h12l-3 17 17-23H24z"/></svg></span><b>電気・電子</b><span>電気の設計や設備にかかわる</span></a>
-      <a class="cat" href="jobs/retail-food/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f1" d="M8 18h32l-3 22H11z" opacity=".85"/><path class="ln" d="M8 18h32l-3 22H11zM17 18v-4a7 7 0 0 1 14 0v4"/></svg></span><b>販売・飲食</b><span>お店でお客さまと向き合う</span></a>
-      <a class="cat" href="?q=%E4%BB%8B%E8%AD%B7"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f3" d="M24 40S8 30 8 19a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 21-16 21z"/><path class="ln" d="M24 40S8 30 8 19a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 21-16 21z"/></svg></span><b>介護・医療</b><span>人の暮らしと健康を支える</span></a>
-      <a class="cat" href="?q=%E9%85%8D%E9%80%81"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f2" d="M4 14h24v20H4zM28 20h9l7 7v7H28z"/><path class="ln" d="M4 14h24v20H4zM28 20h9l7 7v7H28z"/><circle class="fs" cx="13" cy="36" r="4"/><circle class="fs" cx="36" cy="36" r="4"/><circle class="ln" cx="13" cy="36" r="4"/><circle class="ln" cx="36" cy="36" r="4"/></svg></span><b>配送・物流</b><span>ものを運び、届ける</span></a>
-      <a class="cat" href="jobs/architecture-civil/"><span class="cat__ic"><svg viewBox="0 0 48 48"><path class="f4" d="M8 40V20L24 8l16 12v20z" opacity=".85"/><path class="ln" d="M8 40V20L24 8l16 12v20zM4 40h40"/><rect class="fs" x="19" y="26" width="10" height="14" rx="1"/></svg></span><b>建築・CAD</b><span>図面をかく・建物を考える</span></a>
+      <a class="cat" href="jobs/construction-management/"><span class="cat__ph"><img src="/assets/photos/sekou.jpg" width="480" height="320" alt="" loading="lazy"></span><b>施工管理</b><span>建物づくりの現場をまとめる</span></a>
+      <a class="cat" href="?q=%E8%A3%BD%E9%80%A0"><span class="cat__ph"><img src="/assets/photos/seizo.jpg" width="480" height="320" alt="" loading="lazy"></span><b>製造・工場</b><span>ものづくりの現場で働く</span></a>
+      <a class="cat" href="jobs/mechanical/"><span class="cat__ph"><img src="/assets/photos/kikai.jpg" width="480" height="320" alt="" loading="lazy"></span><b>機械・設計</b><span>機械や部品を考えてつくる</span></a>
+      <a class="cat" href="jobs/electrical/"><span class="cat__ph"><img src="/assets/photos/denki.jpg" width="480" height="320" alt="" loading="lazy"></span><b>電気・電子</b><span>電気の設計や設備にかかわる</span></a>
+      <a class="cat" href="jobs/retail-food/"><span class="cat__ph"><img src="/assets/photos/hanbai.jpg" width="480" height="320" alt="" loading="lazy"></span><b>販売・飲食</b><span>お店でお客さまと向き合う</span></a>
+      <a class="cat" href="?q=%E4%BB%8B%E8%AD%B7"><span class="cat__ph"><img src="/assets/photos/kaigo.jpg" width="480" height="320" alt="" loading="lazy"></span><b>介護・医療</b><span>人の暮らしと健康を支える</span></a>
+      <a class="cat" href="?q=%E9%85%8D%E9%80%81"><span class="cat__ph"><img src="/assets/photos/haiso.jpg" width="480" height="320" alt="" loading="lazy"></span><b>配送・物流</b><span>ものを運び、届ける</span></a>
+      <a class="cat" href="jobs/architecture-civil/"><span class="cat__ph"><img src="/assets/photos/kenchiku.jpg" width="480" height="320" alt="" loading="lazy"></span><b>建築・CAD</b><span>図面をかく・建物を考える</span></a>
     </div>
   </section>
 
@@ -1432,22 +1399,8 @@
     </div>
     <p class="kind__lead">最初からできる人はいません。多くの会社では、こんなふうに少しずつ仕事を覚えていきます。</p>
     <div class="kind__box grow">
-      <div class="grow__art ill" aria-hidden="true">
-        <svg viewBox="0 0 360 200">
-          <rect class="fm" x="10" y="140" width="110" height="50" rx="12"/>
-          <rect class="fy" x="125" y="100" width="110" height="90" rx="12"/>
-          <rect class="fm" x="240" y="56" width="110" height="134" rx="12" opacity=".9"/>
-          <!-- 1 研修: 本 -->
-          <g transform="translate(65 112)"><path class="f1" d="M-24-14h22c2 0 2 2 2 2v26s0-2-2-2h-22zM24-14H2c-2 0-2 2-2 2v26s0-2 2-2h22z"/><path class="lw" d="M-16-4h10M6-4h10"/></g>
-          <!-- 2 資格: 賞状 -->
-          <g transform="translate(180 70)"><rect class="f2" x="-22" y="-18" width="44" height="32" rx="4"/><path class="ln" d="M-12-8h24M-12 0h16"/><circle class="f3" cx="14" cy="16" r="8"/><path class="f3" d="M9 20l-3 12 8-4 8 4-3-12z"/></g>
-          <!-- 3 一人前: ヘルメット＋星 -->
-          <g transform="translate(295 28)"><path class="f2" d="M-24 8c0-16 11-26 24-26s24 10 24 26z"/><rect class="f2" x="-30" y="6" width="60" height="8" rx="4"/><path class="ln" d="M-24 8c0-16 11-26 24-26s24 10 24 26M-30 10h60"/></g>
-          <path class="f2" d="M335 18l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
-          <text class="tx" x="65" y="172" text-anchor="middle">研修・OJT</text>
-          <text class="tx" x="180" y="152" text-anchor="middle">資格をとる</text>
-          <text class="tx" x="295" y="120" text-anchor="middle">一人前に</text>
-        </svg>
+      <div class="grow__art" aria-hidden="true">
+        <img src="/assets/photos/grow.jpg" width="900" height="640" alt="" loading="lazy">
       </div>
       <ol class="grow__list">
         <li><i>1</i><div><b>研修・OJTで基本を覚える</b><span>先輩について、道具の使い方や仕事の進め方を教わります（OJT＝働きながら学ぶこと）。</span></div></li>

@@ -60,3 +60,9 @@ jobsite と同じ `.github/workflows/update-jobs.yml`（毎朝06:00 JST）。Sec
 - ヒーローの写真（hero.jpg/webp）を外し、明るいグラデーション＋右にインラインSVGのイラスト（ヘルメット・歯車・スパナ・芽）。文字は濃色。
 - 追加セクション（すべて `#listView` 内）: 「お仕事の種類から探す」（職種アイコン8つ。リンク先は `jobs/<slug>/` の職種一覧か `?q=` 検索。⚠ 職種一覧ページが件数不足で消えるとリンク切れになるので、slug を変えたら直す）／一覧の下に「転職の流れ」ステップ図・「未経験から手に職がつくまで」の図・よくある質問（`<details>`）・相談CTA。数字は書いていない。
 - ヒーロー文・非公開求人の注記をやさしい言い回しに変更。SVGの塗りは属性で var() が効かないので `.ill .f1` などの class で塗る。
+
+## 2026-10-17 イラスト → 写真（Unsplash）
+松岡さん「フリー素材は絵というより写真系を活用して」。ヒーロー右・「お仕事の種類から探す」8枚・「手に職がつくまで」の図を写真に差し替えた（`assets/photos/*.jpg`、images.unsplash.com から幅を指定して取得）。転職の流れのステップアイコンと見出しバッジは UI 用なので SVG のまま。
+- Unsplash License（商用可・クレジット不要）。**Unsplash+（premium_photo-）は使わない**。ぱくたそは暗い写真・AI画像が多く、規約で「人物を社員のように見せる」「自動での一括収集」が禁止なので今回は不採用。
+- 出典（unsplash.com/photos/<ID>）: hero=tZw3fcjUIpM / sekou=Yw5u_ZvQfrs / seizo=aYKPNKZmGkk / kikai=KAVGTm62cuw / denki=LMb98OOtoYU / hanbai=Sx8G6WjyMHU / kaigo=yk7F8bdD0eU / haiso=Mpg2LkMGOS8 / kenchiku=HtBlQdxfG9k / grow=aTWyvqRJoYY
+- 写真は「職種の雰囲気」として使う。求人企業の社員や実例のように見せる文脈（体験談・社員紹介）には使わない。

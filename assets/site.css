@@ -1076,15 +1076,16 @@
   .hero__stats{border-top:1px dashed color-mix(in srgb,var(--accent) 30%, var(--line))}
   .hero__stats b{color:var(--accent)}
   .hero__stats span{color:var(--ink-3)}
-  .hero__art{position:relative; padding:24px 30px 24px 0; align-self:stretch; display:flex; align-items:center}
-  .hero__art svg{width:100%; height:auto; display:block}
+  /* 2026-10-17 松岡さん「フリー素材は絵というより写真系を活用して」→ イラストを Unsplash の写真（assets/photos/）に差し替え */
+  .hero{grid-template-columns:minmax(0,1fr) minmax(0,420px); overflow:hidden}
+  .hero__art{position:relative; padding:0; align-self:stretch; display:block; min-height:100%}
+  .hero__art img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 40%; display:block}
   @media (max-width:900px){
     .hero{grid-template-columns:1fr}
     .hero__inner{padding:30px 22px 26px}
-    .hero__art{order:-1; padding:20px 22px 0; justify-content:center}
-    .hero__art svg{max-width:240px}
+    .hero__art{order:-1; position:relative; height:200px; min-height:0}
   }
-  @media (max-width:560px){ .hero{border-radius:22px} .hero__art svg{max-width:200px} }
+  @media (max-width:560px){ .hero{border-radius:22px} .hero__art{height:170px} }
 
   /* カード類の角を丸く・やわらかく */
   .jrow{border-radius:20px}
@@ -1102,17 +1103,16 @@
 
   /* 職種アイコン */
   .cats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
-  .cat{display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 10px 16px; border-radius:20px; background:var(--surface); border:1.5px solid var(--line); text-decoration:none; color:var(--ink); text-align:center; transition:border-color .15s, transform .15s, background .15s}
+  .cat{display:flex; flex-direction:column; align-items:center; gap:6px; padding:0 0 14px; overflow:hidden; border-radius:20px; background:var(--surface); border:1.5px solid var(--line); text-decoration:none; color:var(--ink); text-align:center; transition:border-color .15s, transform .15s, background .15s}
   .cat:hover{border-color:var(--accent); transform:translateY(-2px); background:var(--soft-mint)}
-  .cat__ic{display:grid; place-items:center; width:64px; height:64px; border-radius:50%}
-  .cat__ic svg{width:40px; height:40px}
+  .cat__ph{display:block; width:100%; aspect-ratio:3/2; margin-bottom:6px; background:var(--soft-mint)}
+  .cat__ph img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s}
+  .cat:hover .cat__ph img{transform:scale(1.04)}
+  .cat b, .cat span{padding:0 10px}
+  .cat .cat__ph{padding:0}
   .cat b{font-size:14.5px; font-weight:800}
   .cat span{font-size:12px; color:var(--ink-3); line-height:1.5}
-  .cat:nth-child(4n+1) .cat__ic{background:var(--soft-mint)}
-  .cat:nth-child(4n+2) .cat__ic{background:var(--soft-sun)}
-  .cat:nth-child(4n+3) .cat__ic{background:var(--soft-peach)}
-  .cat:nth-child(4n+4) .cat__ic{background:var(--soft-sky)}
-  @media (max-width:760px){ .cats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px} .cat{padding:14px 8px} }
+  @media (max-width:760px){ .cats{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px} .cat{padding:0 0 12px} }
 
   /* 転職の流れ（ステップ図） */
   .steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; counter-reset:st}
@@ -1136,7 +1136,7 @@
 
   /* 手に職がつくまで（階段の図） */
   .grow{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; align-items:center}
-  .grow__art svg{width:100%; max-width:440px; margin:0 auto; height:auto; display:block}
+  .grow__art img{width:100%; max-width:480px; margin:0 auto; height:auto; aspect-ratio:45/32; object-fit:cover; border-radius:20px; display:block}
   .grow__list{list-style:none; margin:0; padding:0; display:grid; gap:12px}
   .grow__list li{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:18px; background:var(--surface-2)}
   .grow__list li i{flex:none; font-style:normal; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:13px; color:#fff; background:var(--ill-1)}
