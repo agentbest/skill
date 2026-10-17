@@ -18,6 +18,7 @@
 //    ここには持たない。template.html 側を直せば静的ページにも反映される。
 // ⚠ 生成物（job/ jobs/ area/ sitemap.xml assets/site.css）は直接編集しない。次の rebuild で消える。
 const fs = require('fs'), path = require('path');
+const { jobsShown } = require('./site-split');
 
 const JOBS_SITE = 'https://jobs.agent-best.net';  /* skill の求人ページの canonical 先 */
 const SITE = 'https://skill.agent-best.net';
@@ -249,7 +250,8 @@ function jobPage(ctx, j, related){
   const canon = SITE + jobPath(j);
   /* 2026-10-16 松岡さん「jobsが重要だから、ちゃんと分けたい」: skill の求人はすべて jobs にも同じ ID・同じパスで出ているので、
      検索エンジンの評価は jobs に寄せる（canonical・JobPosting の url を jobs に。sitemap にも入れない）。シェア用 URL は skill のまま。 */
-  const jobsCanon = JOBS_SITE + jobPath(j);
+  /* 2026-10-17〜 jobs と skill で出す求人を分けたので、jobs に出ない求人（jobsShown() が false）は skill 自身を canonical にし sitemap にも入れる */
+  const jobsCanon = jobsShown(j) ? JOBS_SITE + jobPath(j) : canon;
   const apply = applyHref(C.APPLY_PAGE, j);
 
   /* 見出しのタグ（検索画面の renderDetail と同じ順） */
@@ -668,7 +670,9 @@ function build(root, full){
   const today = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
   const urls = [{ loc: `${SITE}/`, lastmod: today, pri: '1.0' }]
     .concat(pages.map(p => ({ loc: `${SITE}/${p.rel}/`, lastmod: today, pri: '0.8' })))
-    /* skill: 企業ページ・求人ページは canonical が jobs 側なので sitemap に入れない（co.urls・求人URLは使わない。2026-10-16〜求人も） */;
+    /* skill: 企業ページ・求人ページは canonical が jobs 側なので sitemap に入れない（co.urls・求人URLは使わない。2026-10-16〜求人も）。
+       ただし skill だけに出る求人（jobsShown() が false）は canonical が skill 自身なので入れる（2026-10-17〜） */
+    .concat(full.filter(j => !jobsShown(j)).map(j => ({ loc: SITE + jobPath(j), lastmod: j.createdAt || (j.recordCreatedAt || today).slice(0, 10), pri: '0.6' })));
   const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + urls.map(u => `<url><loc>${esc(u.loc)}</loc><lastmod>${u.lastmod}</lastmod><priority>${u.pri}</priority></url>`).join('\n') + '\n</urlset>\n';
   fs.writeFileSync(path.join(root, 'sitemap.xml'), xml, 'utf8');
