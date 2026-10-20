@@ -45,6 +45,10 @@
 - `assets/ogp.jpg` は skill 用（2026-10-15・原本 `tools/ogp/src.html` を Chrome ヘッドレスで 1200×630 に出力→JPG）。`assets/hero.*` は jobs と同じ写真。
 - `data/first-seen.json` は jobs からの写しで始めた（掲載開始日を引き継ぐため）。
 
+## 2026-10-20 媒体・エージェント向けの文言を落とす／タグの否定語
+- `fetch-jobs.js` の `sanitize()`（jobsite と鏡写し）: 「■募集元情報」段落、「求人票更新日／企業№／担当者／募集開始／募集終了」行、「（…エージェント経由…）」「（…経由の求人票）」を取り込み時に落としてログに名指しする。正は Airtable（詳細は jobsite の CLAUDE.md「媒体・エージェント向けの文言はサイトに出さない」）。
+- `tools/tags/assign-tags.js` も jobsite の写し（否定された一致を数えない・`--fix-negated`）。タグ付けは jobsite 側で回せば両サイトに効く（Airtable のタグ列は共通）。
+
 ## 自動更新
 
 jobsite と同じ `.github/workflows/update-jobs.yml`（毎朝06:00 JST）。Secret `AIRTABLE_TOKEN` が必要。
