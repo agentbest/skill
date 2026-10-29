@@ -168,6 +168,9 @@
 <url><loc>https://skill.agent-best.net/jobs/corporate/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/corporate/kanto/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/corporate/tokyo/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+<url><loc>https://skill.agent-best.net/jobs/marketing/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+<url><loc>https://skill.agent-best.net/jobs/marketing/kanto/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+<url><loc>https://skill.agent-best.net/jobs/marketing/tokyo/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/semiconductor/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/semiconductor/kanto/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/consultant/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
@@ -175,9 +178,6 @@
 <url><loc>https://skill.agent-best.net/jobs/consultant/tokyo/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/real-estate/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/real-estate/kanto/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
-<url><loc>https://skill.agent-best.net/jobs/marketing/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
-<url><loc>https://skill.agent-best.net/jobs/marketing/kanto/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
-<url><loc>https://skill.agent-best.net/jobs/marketing/tokyo/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/transport/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/transport/kanto/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/hr/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
@@ -189,8 +189,8 @@
 <url><loc>https://skill.agent-best.net/jobs/food/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/creative/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/internet-service/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
-<url><loc>https://skill.agent-best.net/jobs/finance/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/business-planning/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+<url><loc>https://skill.agent-best.net/jobs/finance/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/it-consultant/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/childcare/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://skill.agent-best.net/jobs/corporate-planning/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
