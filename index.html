@@ -1530,7 +1530,7 @@
    タグは番号（t）で入っていて、TAGS の定義後（下の JOBS.forEach）で名前に戻す。 */
 const JOBS = (d=>{ if(Array.isArray(d)) return d; const k=d.k||[]; return (d.r||[]).map(row=>{ const o={}; k.forEach((key,i)=>{ const v=row[i]; if(v!==null&&v!==undefined&&v!=="") o[key]=v; }); return o; }); })(await (async()=>{
   try{
-    const r=await fetch("data/list.json?v=d9e5aa9de4",{cache:"force-cache"});
+    const r=await fetch("data/list.json?v=22b208250f",{cache:"force-cache"});
     if(!r.ok) throw new Error("HTTP "+r.status);
     return await r.json();
   }catch(e){
@@ -1603,7 +1603,7 @@ function mailUrl(j, way){
   const co  = j&&j.company||"";
   /* ローカルで file:// から開くと origin が "null" になるので、その場合はURLを載せない */
   const link = (j&&j.id&&/^https?:$/.test(location.protocol))
-    ? `${location.origin}${location.pathname}?job=${encodeURIComponent(j.id)}` : "";
+    ? `${location.origin}/job/${encodeURIComponent(j.id)}/` : "";
   const tel = /電話/.test(way||"");
   const subject = `【${tel?"電話希望":"求人について"}】${co}${co&&pos?" / ":""}${pos}`;
   const body =
@@ -1634,7 +1634,7 @@ function lineMsgUrl(j){
   const pos = j&&(j.position||j.jobCategory||j.title)||"";
   const co  = j&&j.company||"";
   const link = (j&&j.id&&/^https?:$/.test(location.protocol))
-    ? `${location.origin}${location.pathname}?job=${encodeURIComponent(j.id)}` : "";
+    ? `${location.origin}/job/${encodeURIComponent(j.id)}/` : "";
   const msg =
     `求人サイトを見てご連絡しました。下記の求人について相談したいです。\n`+
     `■求人：${pos}\n■企業：${co}\n`+(link?`■ページ：${link}\n`:"");
