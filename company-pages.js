@@ -83,6 +83,13 @@ function build(root, ctx, full, H){
     return lo != null && hi != null ? `${lo}〜${hi}万円` : lo != null ? `${lo}万円〜` : `〜${hi}万円`;
   };
   const listedLabel = c => c.listed === '上場' ? (c.market && c.market !== '非上場' ? c.market : '上場') : (c.listed || '');
+  /* 募集中の求人の要点（職種の大分類・勤務地・リモート可の件数）。<title>・description・冒頭の要約に使う（jobsite と同じ・2026-11-03）。
+     GSC 10月分：企業ページは社名検索で表示されてもクリック0が大半だったので、タイトルの時点で年収・勤務地・職種を見せる */
+  const jobGroupOf = H.jobGroupOf || (() => 'その他');
+  const jobFacts = c => {
+    const cnt = f => { const m = new Map(); c.jobs.forEach(j => (f(j) || []).forEach(v => { if(v) m.set(v, (m.get(v) || 0) + 1); })); return [...m.entries()].sort((a, b) => b[1] - a[1]); };
+    return { groups: cnt(j => [jobGroupOf(j.jobCategory)]).filter(([g]) => g !== 'その他'), prefs: cnt(j => j.areas || []), remote: c.jobs.filter(j => j.remote).length };
+  };
   const byIndustry = new Map(), byBig = new Map();
   companies.forEach(c => {
     (c.industry || []).forEach(i => { if(!byIndustry.has(i)) byIndustry.set(i, []); byIndustry.get(i).push(c); });
@@ -97,6 +104,15 @@ function build(root, ctx, full, H){
     const n = c.jobs.length;
     const jobs = sortForList(c.jobs);
     const sal = salRange(c);
+    /* 募集中の求人の要点（2026-11-03）。職種の大分類・勤務地は多い順、タイトルには上位2つまで */
+    const facts = jobFacts(c);
+    const topGroups = facts.groups.slice(0, 2).map(([g]) => g);
+    const topPrefs = facts.prefs.slice(0, 2).map(([p]) => p);
+    const factsLine = n ? [
+      facts.groups.length ? `募集中の職種：${facts.groups.slice(0, 4).map(([g, k]) => `${g} ${k}件`).join('・')}` : '',
+      facts.prefs.length ? `勤務地：${facts.prefs.slice(0, 4).map(([p]) => p).join('・')}` : '',
+      facts.remote ? `リモート可 ${facts.remote}件` : '',
+    ].filter(Boolean).join('／') : '';
     const url = (typeof c.url === 'string' && /^https?:\/\//.test(c.url)) ? c.url : null;
     const row = (k, v) => v ? `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>` : '';
     const meta = [
@@ -143,6 +159,7 @@ function build(root, ctx, full, H){
         ${c.tagline ? `<p class="co-head__tag">${esc(c.tagline)}</p>` : ''}
         <div class="co-head__chips">${chip((c.industry || [])[0])}${chip(c.pref)}${chip(c.size)}${chip(listedLabel(c) === '非上場' ? '' : listedLabel(c), 'tag--cat')}</div></div></div>
       <ul class="lp__stats"><li><b>${n.toLocaleString()}</b>件 募集中</li>${sal ? `<li>想定年収 <b>${esc(sal)}</b></li>` : ''}${c.employeeCount ? `<li>従業員数 <b>${c.employeeCount.toLocaleString()}</b>名</li>` : ''}</ul>
+      ${factsLine ? `<p class="co-txt co-facts">${esc(factsLine)}</p>` : ''}
       ${c.overview ? `<div class="pd-sec"><h2>会社概要</h2><p class="co-txt">${esc(c.overview)}</p></div>` : ''}
       ${c.biz ? `<div class="pd-sec"><h2>事業内容</h2><p class="co-txt">${esc(c.biz)}</p></div>` : ''}
       ${meta ? `<div class="pd-sec"><h2>基本情報</h2><dl class="pd-meta">${meta}</dl></div>` : ''}
@@ -169,14 +186,19 @@ function build(root, ctx, full, H){
         { '@type': 'ListItem', position: 3, name: c.name, item: canon } ] },
     ]};
     /* 0件の会社は「（募集中0件）」をタイトルに出さない（検索結果で見て踏む理由が無くなるため）。同業界の求人を載せていることを書く */
+    /* 2026-11-03: 求人がある会社は「転職・求人N件｜年収レンジ・勤務地・職種」で、社名で検索した人の問いに title の時点で答える（jobsite と同じ） */
+    const axes = [sal && `年収${sal}`, topPrefs.join('・'), topGroups.join('・')].filter(Boolean).join('・');
     const title = n
-      ? `${c.name}の会社概要・転職/求人情報（募集中${n}件） - エージェントベストジョブ手に職`
+      ? `${c.name}の転職・求人${n}件｜${axes || '年収・勤務地・職種'} - エージェントベストジョブ手に職`
       : `${c.name}の会社概要・転職情報${near.length ? '｜同業界の求人' : ''} - エージェントベストジョブ手に職`;
-    const descHead = plain(c.overview || c.biz, 90);
-    const desc = `${descHead ? descHead + ' ' : ''}${c.name}の会社概要（${[c.pref, listedLabel(c), c.size && `従業員${c.size}`].filter(Boolean).join('・')}）と${n ? `募集中の求人${n}件${sal ? `（想定年収${sal}）` : ''}` : near.length ? `、同じ業界で募集中の求人${near.length}件` : '転職情報'}。転職支援は無料です。`;
+    const descHead = plain(c.overview || c.biz, n ? 60 : 90);
+    const coLine = `${c.name}の会社概要（${[c.pref, listedLabel(c), c.size && `従業員${c.size}`].filter(Boolean).join('・')}）`;
+    const desc = n
+      ? `${c.name}の求人${n}件を掲載${sal ? `（年収${sal}）` : ''}。${topGroups.length ? `職種は${topGroups.join('・')}` : ''}${topGroups.length && topPrefs.length ? '、' : ''}${topPrefs.length ? `勤務地は${topPrefs.join('・')}` : ''}${facts.remote ? `、リモート可${facts.remote}件` : ''}。${coLine}。${descHead ? descHead + ' ' : ''}転職支援は無料です。`
+      : `${descHead ? descHead + ' ' : ''}${coLine}と${near.length ? `、同じ業界で募集中の求人${near.length}件` : '転職情報'}。転職支援は無料です。`;
     return tpl
-      .replace('__TITLE__', () => esc(title.length > 70 ? (n ? `${c.name}の会社概要・求人（${n}件） - エージェントベスト` : `${c.name}の会社概要・転職情報 - エージェントベスト`) : title))
-      .replace(/__OGTITLE__/g, () => esc(n ? `${c.name}の会社概要・転職/求人情報（募集中${n}件）` : `${c.name}の会社概要・転職情報`))
+      .replace('__TITLE__', () => esc(title.length > 70 ? (n ? `${c.name}の転職・求人${n}件｜年収・勤務地・職種 - エージェントベスト` : `${c.name}の会社概要・転職情報 - エージェントベスト`) : title))
+      .replace(/__OGTITLE__/g, () => esc(n ? `${c.name}の転職・求人${n}件｜${axes || '年収・勤務地・職種'}` : `${c.name}の会社概要・転職情報`))
       .replace(/__DESC__/g, () => esc(desc))
       .replace(/__CANON__/g, () => esc(canon))
       .replace('__JSONLD__', () => JSON.stringify(ld).replace(/<\//g, '<\\/'))
