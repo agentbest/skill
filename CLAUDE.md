@@ -54,7 +54,7 @@
 
 - Supabase の Redirect URLs に `https://skill.agent-best.net/**` は 2026-10-15 に追加済み。
 - 通知（Edge Function `notify-slack` の `SITES`、Apps Script、管理画面 jobsite-admin）は `source/site = "skill"` を知らない。今は中途扱いのラベルで届く。
-- `assets/ogp.jpg` は skill 用（2026-10-15・原本 `tools/ogp/src.html` を Chrome ヘッドレスで 1200×630 に出力→JPG）。`assets/hero.*` は jobs と同じ写真。
+- `assets/ogp.jpg` は skill 用（2026-11-12 キャリアチェンジ版に作り直し・写真は photos/hero.jpg・参照は `?v=20261112` 付き。2026-10-15・原本 `tools/ogp/src.html` を Chrome ヘッドレスで 1200×630 に出力→JPG）。`assets/hero.*` は jobs と同じ写真。
 - `data/first-seen.json` は jobs からの写しで始めた（掲載開始日を引き継ぐため）。
 
 ## 2026-10-20 媒体・エージェント向けの文言を落とす／タグの否定語
