@@ -1138,7 +1138,7 @@
     .step b{display:block}
   }
 
-  /* 手に職がつくまで（階段の図） */
+  /* 未経験から一人前になるまで（階段の図） */
   .grow{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; align-items:center}
   .grow__art img{width:100%; max-width:480px; margin:0 auto; height:auto; aspect-ratio:45/32; object-fit:cover; border-radius:20px; display:block}
   .grow__list{list-style:none; margin:0; padding:0; display:grid; gap:12px}

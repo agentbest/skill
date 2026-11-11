@@ -500,12 +500,12 @@ function jobPage(ctx, j, related){
     { '@type': 'ListItem', position: gslug ? 3 : 2, name, item: canon },
   ]};
 
-  const title = `${name}｜${co}${titleSal(j)} - エージェントベストジョブ手に職`;
+  const title = `${name}｜${co}${titleSal(j)} - エージェントベストジョブ キャリアチェンジ`;
   const desc = jobDesc(j, co);
   const crumb = `<a href="/">ホーム</a><span class="sep">›</span>${gslug ? `<a href="/jobs/${gslug}/">${esc(group)}の求人</a><span class="sep">›</span>` : ''}<span class="cur">${esc(name)}</span>`;
   const back = gslug ? `/jobs/${gslug}/` : '/';
   return tpl
-    .replace('__TITLE__', () => esc(title.length > 70 ? `${name}｜${co} - エージェントベストジョブ手に職` : title))
+    .replace('__TITLE__', () => esc(title.length > 70 ? `${name}｜${co} - エージェントベストジョブ キャリアチェンジ` : title))
     .replace(/__OGTITLE__/g, () => esc(`${name}｜${co}${titleSal(j)}`))
     .replace(/__DESC__/g, () => esc(desc))
     .replace(/__CANON__/g, () => esc(jobsCanon))
@@ -573,7 +573,7 @@ function landingPage(ctx, p){
   if(medMin || medMax) facts.push(`提示年収の中央値は${medMin ? `下限${medMin.toLocaleString()}万円` : ''}${medMin && medMax ? '・' : ''}${medMax ? `上限${medMax.toLocaleString()}万円` : ''}`);
   if(nRemote) facts.push(`リモート可が${nRemote.toLocaleString()}件`);
   const factsText = facts.length ? facts.join('、') + '。' : '';
-  const desc = `${p.title}を${n.toLocaleString()}件（${cos.toLocaleString()}社）掲載。${factsText}未経験歓迎 ${nSal800}件。手に職をつける転職の求人検索。ご利用は無料です。`;
+  const desc = `${p.title}を${n.toLocaleString()}件（${cos.toLocaleString()}社）掲載。${factsText}未経験歓迎 ${nSal800}件。未経験・第二新卒の転職求人検索。ご利用は無料です。`;
   /* 件数が LP_MIN を割った一覧（公開中のページは LP_KEEP 件まで残す）は noindex にして sitemap から外す（jobsite と同じ） */
   const thin = n < LP_MIN;
   const main = `<h1>${esc(p.h1)}<small style="font-size:.7em;color:var(--ink-3);font-weight:700;margin-left:8px">${n.toLocaleString()}件</small></h1>
@@ -590,7 +590,7 @@ function landingPage(ctx, p){
   const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: p.title, url: canon, description: desc };
   const html = ctx.lpTpl
     .replace('<meta name="robots" content="index,follow">', () => `<meta name="robots" content="${thin ? 'noindex' : 'index'},follow">`)
-    .replace('__TITLE__', () => esc(`${p.title}（${n.toLocaleString()}件） - エージェントベストジョブ手に職`))
+    .replace('__TITLE__', () => esc(`${p.title}（${n.toLocaleString()}件） - エージェントベストジョブ キャリアチェンジ`))
     .replace(/__OGTITLE__/g, () => esc(`${p.title}（${n.toLocaleString()}件）`))
     .replace(/__DESC__/g, () => esc(desc))
     .replace(/__CANON__/g, () => esc(canon))

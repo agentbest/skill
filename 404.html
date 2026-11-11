@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>ページが見つかりません — エージェントベストジョブ手に職</title>
+<title>ページが見つかりません — エージェントベストジョブ キャリアチェンジ</title>
 <!-- GitHub Pages が存在しないURLすべてに返すページ（ステータスは404のまま）。どの階層のURLでも開かれるので、
      画像・リンクは必ず / から始まる絶対パスで書く。
      /job/<求人ID>/ で来たときは data/closed-jobs.json（static-pages.js の recordClosedJobs が作る）から
@@ -76,7 +76,7 @@
 <body>
 <header class="topbar">
   <div class="topbar__inner">
-    <strong><a href="/">エージェントベストジョブ手に職</a></strong>
+    <strong><a href="/">エージェントベストジョブ キャリアチェンジ</a></strong>
     <a href="/">求人検索 &rarr;</a>
   </div>
 </header>
@@ -147,7 +147,7 @@
     document.getElementById('cTitle').textContent = title;
     document.getElementById('cCo').textContent = co;
     document.getElementById('closed').hidden = false;
-    document.title = '掲載終了：' + title + (co ? '｜' + co : '') + ' — エージェントベストジョブ手に職';
+    document.title = '掲載終了：' + title + (co ? '｜' + co : '') + ' — エージェントベストジョブ キャリアチェンジ';
     var links = document.getElementById('links');
     links.innerHTML = '';
     if(cid) links.appendChild(btn('/company/' + encodeURIComponent(cid) + '/', co + 'の募集中の求人を見る', true));

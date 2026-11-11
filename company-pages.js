@@ -189,8 +189,8 @@ function build(root, ctx, full, H){
     /* 2026-11-03: 求人がある会社は「転職・求人N件｜年収レンジ・勤務地・職種」で、社名で検索した人の問いに title の時点で答える（jobsite と同じ） */
     const axes = [sal && `年収${sal}`, topPrefs.join('・'), topGroups.join('・')].filter(Boolean).join('・');
     const title = n
-      ? `${c.name}の転職・求人${n}件｜${axes || '年収・勤務地・職種'} - エージェントベストジョブ手に職`
-      : `${c.name}の会社概要・転職情報${near.length ? '｜同業界の求人' : ''} - エージェントベストジョブ手に職`;
+      ? `${c.name}の転職・求人${n}件｜${axes || '年収・勤務地・職種'} - エージェントベストジョブ キャリアチェンジ`
+      : `${c.name}の会社概要・転職情報${near.length ? '｜同業界の求人' : ''} - エージェントベストジョブ キャリアチェンジ`;
     const descHead = plain(c.overview || c.biz, n ? 60 : 90);
     const coLine = `${c.name}の会社概要（${[c.pref, listedLabel(c), c.size && `従業員${c.size}`].filter(Boolean).join('・')}）`;
     const desc = n
@@ -353,7 +353,7 @@ function build(root, ctx, full, H){
   reset();
 })();
 </script>`;
-    return pageHtml({ rel: '/company/', title: `企業一覧（${list.length.toLocaleString()}社）会社概要と募集中の求人 - エージェントベストジョブ手に職`,
+    return pageHtml({ rel: '/company/', title: `企業一覧（${list.length.toLocaleString()}社）会社概要と募集中の求人 - エージェントベストジョブ キャリアチェンジ`,
       h1: '企業一覧', desc: `${list.length.toLocaleString()}社の会社概要（本社・設立・資本金・従業員数・上場区分・事業内容）と募集中の求人${full.length.toLocaleString()}件。業界・本社・企業規模で絞り込めます。転職支援は無料です。`,
       crumbs: [], main, script });
   }
@@ -370,7 +370,7 @@ function build(root, ctx, full, H){
       ${listBlock(list, BIG_LIST_MAX)}
       ${list.length > BIG_LIST_MAX ? `<p class="co-note">募集中の企業を優先して上位${BIG_LIST_MAX}社を表示しています。すべての企業は上の「業種で絞る」から各業種のページでご覧いただけます。</p>` : ''}
       ${ctaHtml('static-company-big')}`;
-    return pageHtml({ rel: bigPath(bc), title: `${b.name}の企業一覧（${list.length.toLocaleString()}社）会社概要・求人 - エージェントベストジョブ手に職`,
+    return pageHtml({ rel: bigPath(bc), title: `${b.name}の企業一覧（${list.length.toLocaleString()}社）会社概要・求人 - エージェントベストジョブ キャリアチェンジ`,
       h1: `${b.name}の企業一覧`, desc: `${b.name}の企業${list.length.toLocaleString()}社の会社概要と募集中の求人。${mids.map(([, m]) => m.name).slice(0, 6).join('・')}${mids.length > 6 ? 'など' : ''}の業種から探せます。転職支援は無料です。`,
       crumbs: [[b.name, bigPath(bc)]], main, script: listScript });
   }
@@ -386,7 +386,7 @@ function build(root, ctx, full, H){
       ${filterForm(prefsIn(list), sizesIn(list))}
       ${listBlock(list)}
       ${ctaHtml('static-company-mid')}`;
-    return pageHtml({ rel: indPath(code), title: `${m.name}の企業一覧（${list.length.toLocaleString()}社）会社概要・求人 - エージェントベストジョブ手に職`,
+    return pageHtml({ rel: indPath(code), title: `${m.name}の企業一覧（${list.length.toLocaleString()}社）会社概要・求人 - エージェントベストジョブ キャリアチェンジ`,
       h1: `${m.name}の企業一覧`, desc: `${m.name}の企業${list.length.toLocaleString()}社の会社概要（本社・設立・資本金・従業員数・上場区分）と募集中の求人。本社・企業規模で絞り込めます。転職支援は無料です。`,
       crumbs: b ? [[b.name, bigPath(bc)], [m.name, indPath(code)]] : [[m.name, indPath(code)]], main, script: listScript });
   }
