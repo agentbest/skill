@@ -61,6 +61,9 @@
 - `fetch-jobs.js` の `sanitize()`（jobsite と鏡写し）: 「■募集元情報」段落、「求人票更新日／企業№／担当者／募集開始／募集終了」行、「（…エージェント経由…）」「（…経由の求人票）」を取り込み時に落としてログに名指しする。正は Airtable（詳細は jobsite の CLAUDE.md「媒体・エージェント向けの文言はサイトに出さない」）。
 - `tools/tags/assign-tags.js` も jobsite の写し（否定された一致を数えない・`--fix-negated`）。タグ付けは jobsite 側で回せば両サイトに効く（Airtable のタグ列は共通）。
 
+## 2026-11-14 求人ではない行を取り込みで弾く（jobs と鏡写し）
+`nonjob.js`（jobs と同じファイル）を `fetch-jobs.js` から呼び、カジュアル面談の受付・会社説明会・セミナー・座談会・イベント・開催日の過ぎた選考会を載せずにログへ名指しする。Airtable の行は触らない。判定の詳細と「載せるもの」の例は jobs の CLAUDE.md「求人ではない行を取り込みで弾く」。**片方だけ直さない**（`nonjob.js` は2リポジトリで同じ内容）。確認は `node tools/nonjob-test.js`。
+
 ## 自動更新
 
 jobsite と同じ `.github/workflows/update-jobs.yml`（毎朝06:00 JST）。Secret `AIRTABLE_TOKEN` が必要。
