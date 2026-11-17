@@ -760,6 +760,8 @@ function build(root, full){
   /* 6. sitemap.xml / robots.txt */
   const today = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
   const urls = [{ loc: `${SITE}/`, lastmod: today, pri: '1.0' }]
+    /* 手書きの特設ページ（skill/genba/ ＝現場の仕事からの転職LP、2026-11-18〜）。rebuild では作らない・消さない */
+    .concat(['genba'].filter(d => fs.existsSync(path.join(root, d, 'index.html'))).map(d => ({ loc: `${SITE}/${d}/`, lastmod: today, pri: '0.9' })))
     .concat(pages.filter(p => p.jobs.length >= LP_MIN).map(p => ({ loc: `${SITE}/${p.rel}/`, lastmod: today, pri: '0.8' })))   /* LP_MIN 未満は noindex（landingPage） */
     /* skill: 企業ページ・求人ページは canonical が jobs 側なので sitemap に入れない（co.urls・求人URLは使わない。2026-10-16〜求人も）。
        ただし skill だけに出る求人（jobsShown() が false）は canonical が skill 自身なので入れる（2026-10-17〜） */
