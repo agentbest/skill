@@ -1319,6 +1319,29 @@
     </div>
   </section>
 
+  <!-- ===== 現場の仕事からの転職LP（/genba/）への入口（2026-11-18〜・手書きページへの導線） ===== -->
+  <section class="kind genba-in" aria-labelledby="genbaH">
+    <style>
+      .genba-in a.gb{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px 20px;text-decoration:none;color:inherit;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:18px;padding:20px 22px}
+      .genba-in a.gb:hover{border-color:var(--accent)}
+      .genba-in .gb__k{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--accent-ink);margin-bottom:4px}
+      .genba-in h2{margin:0 0 6px;font-size:clamp(17px,2.6vw,21px);line-height:1.45}
+      .genba-in p{margin:0;color:var(--ink-2);font-size:14px;line-height:1.7}
+      .genba-in .gb__go{white-space:nowrap;background:var(--accent);color:#fff;font-weight:800;font-size:14px;padding:10px 18px;border-radius:999px}
+      @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .genba-in .gb__go{color:#0b1f1b}}
+      :root[data-theme="dark"] .genba-in .gb__go{color:#0b1f1b}
+      @media (max-width:640px){.genba-in a.gb{grid-template-columns:1fr}.genba-in .gb__go{justify-self:start}}
+    </style>
+    <a class="gb" href="/genba/" data-cta="skill-top-genba">
+      <span>
+        <span class="gb__k">医療・介護・工場・建設・物流・飲食で働く方へ</span>
+        <h2 id="genbaH">夜勤や立ち仕事から、長く続けられる働き方へ。</h2>
+        <p>現場の経験を活かせる仕事と、未経験から転職するときに知っておきたいことをまとめました。</p>
+      </span>
+      <span class="gb__go">くわしく見る →</span>
+    </a>
+  </section>
+
   <!-- ===== 特集コーナー。カードは JS（FEATURES）が件数つきで描く。0件の特集は出さない ===== -->
   <section class="feat" id="feat" hidden aria-labelledby="featH">
     <div class="feat__h"><h2 id="featH">特集</h2><span>テーマから求人を探す</span></div>
